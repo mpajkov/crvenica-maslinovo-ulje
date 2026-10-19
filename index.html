@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<!--
+  ==========================================================================
+  CRVENICA · stranica za prodaju maslinovog ulja (jedna stranica, HR + EN)
+  ==========================================================================
+
+  OVA DATOTEKA (index.html) = SAV SADRŽAJ STRANICE.
+  Izgled je u style.css, a ponašanje (jezik, izbornik, cijene, forma) u script.js.
+
+  KAKO RADI PRIJEVOD NA ENGLESKI
+  - Hrvatski tekst pišeš normalno između tagova.
+  - Engleski prijevod istog teksta ide u atribut data-en="..." na ISTOM elementu.
+      <p data-en="Hello">Bok</p>
+  - Ako element unutra ima druge tagove (<em>, <strong>, <sub>, <br>), koristi data-en-html.
+      <h2 data-en-html="Oil from the <em>red</em> earth.">Ulje s <em>crvene</em> zemlje.</h2>
+  - Za atribute: data-en-alt (opis slike), data-en-placeholder, data-en-aria-label,
+    data-en-content (meta opis), data-en-title.
+  - Ako zaboraviš data-en, tekst na engleskoj verziji ostane na hrvatskom. Ništa se ne ruši.
+
+  PODACI KOJI SE PONAVLJAJU (email, telefon, godina berbe, cijena dostave)
+  - Ne mijenjaj ih ovdje. Mijenjaju se na JEDNOM mjestu: script.js, PART 1 SETTINGS.
+  - Elementi s data-fill="..." i data-href="..." dobivaju vrijednost iz SETTINGS.
+
+  CIJENE PAKETA
+  - Mijenjaju se SAMO u data-price i data-liters na kartici paketa (sekcija #pricing).
+    Cijena po litri, ušteda, izbor u formi i ukupni iznos izračunaju se sami.
+
+  KAKO DODATI NOVU SEKCIJU
+  1. Kopiraj predložak s dna <main> (traži "PREDLOŽAK ZA NOVU SEKCIJU") i makni komentar.
+  2. Promijeni id (npr. id="galerija") i tekstove.
+  3. U izbornik (.site-nav__list) i u podnožje (.footer-nav) dodaj link: <a href="#galerija">.
+  4. Stil dodaj u style.css kao novi PART prije "PART 16".
+  5. Ako sekcija treba JavaScript, dodaj funkciju u script.js i upiši je u listu u PART 13.
+
+  Oznaka PROMIJENI: u komentarima znači da je tekst primjer koji trebaš zamijeniti pravim podacima.
+-->
+<html lang="hr" class="no-js">
+<head>
+  <!-- Kodna stranica: omogućuje č, ć, đ, š, ž i € -->
+  <meta charset="utf-8">
+  <!-- SIGURNOST (Content-Security-Policy): preglednik smije učitati skripte, stilove, fontove i slike samo s ove stranice,
+       a podatke iz forme smije poslati samo na Web3Forms. Ne briši. Ako jednog dana dodaš vanjski servis
+       (analitiku, video...), njegovu adresu treba dopisati ovdje.
+       "style-src-attr 'unsafe-inline'" dopušta samo male vrijednosti u HTML-u kao style="--value: 7" (trake u grafovima),
+       ne i vanjske stilove. Slike (i tekstura papira) smiju doći samo s ove stranice. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self'; manifest-src 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- DEMO: tražilice ne smiju pokazivati ovu primjernu stranicu kao pravu trgovinu. OBRIŠI ovu liniju kad stranicu pokreneš za pravi OPG. -->
+  <meta name="robots" content="noindex">
+  <!-- Prilagodba širini mobitela (bez ovoga stranica na mobitelu izgleda sitno) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Naslov u kartici preglednika i na Googleu. PROMIJENI: ime brenda -->
+  <title data-en="Crvenica · Extra virgin olive oil from Istria">Crvenica · Ekstra djevičansko maslinovo ulje iz Istre</title>
+  <!-- Opis koji Google prikazuje ispod naslova (do ~155 znakova) -->
+  <meta name="description" content="Maslinovo ulje s obiteljskog maslinika u Istri. Bez prskanja, ručno brano, u uljari isti dan. Boca od 1 L, limenka od 5 L i zaliha od 20 L s dostavom po Hrvatskoj." data-en-content="Olive oil from a family grove in Istria. No spraying, picked by hand, milled the same day. A 1 L bottle, a 5 L tin or 20 L for the year, delivered across Croatia.">
+  <!-- Boja trake preglednika na mobitelu -->
+  <meta name="theme-color" content="#1F2A16">
+  <!-- PROMIJENI: prava adresa stranice kad dobije vlastitu domenu (ista adresa i u og:url, og:image, sitemap.xml, robots.txt i 404.html) -->
+  <link rel="canonical" href="https://mpajkov.github.io/crvenica-maslinovo-ulje/">
+
+  <!-- Izgled linka kad ga netko podijeli na Facebooku, WhatsAppu i slično -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Crvenica">
+  <meta property="og:url" content="https://mpajkov.github.io/crvenica-maslinovo-ulje/">
+  <meta property="og:locale" content="hr_HR">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:title" content="Crvenica · Ulje s crvene zemlje" data-en-content="Crvenica · Oil from the red earth">
+  <meta property="og:description" content="Ekstra djevičansko maslinovo ulje iz Istre. Bez prskanja, ručno brano, u uljari isti dan." data-en-content="Extra virgin olive oil from Istria. No spraying, picked by hand, milled the same day.">
+  <!-- Slika za dijeljenje mora imati PUNU adresu (Facebook i WhatsApp ne razumiju kratke putanje). Veličina 1200 x 630. -->
+  <meta property="og:image" content="https://mpajkov.github.io/crvenica-maslinovo-ulje/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Crvenica: boca maslinovog ulja ispred ilustracije maslinika na crvenoj zemlji, uz naslov „Ulje s crvene zemlje.“" data-en-content="Crvenica: a bottle of olive oil in front of an illustration of an olive grove on red soil, with the headline “Oil from the red earth.”">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Ikone u kartici preglednika i na iPhoneu -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Fontovi se namjerno NE učitavaju unaprijed (preload). Mjerenje na simuliranom sporom mobitelu pokazalo je da to
+       odgodi prvi prikaz teksta za oko 350 ms, jer fontovi dijele istu sporu vezu sa stilovima i naslovnom slikom.
+       Tekst se odmah prikaže zamjenskim fontom (font-display: swap) i zamijeni se čim pravi font stigne. -->
+
+  <!-- Sav izgled stranice -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Sve ponašanje stranice. "defer" = pokreni tek kad se HTML učita -->
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!-- Link za korisnike tipkovnice i čitače ekrana: preskače izbornik -->
+  <a class="skip-link" href="#main" data-en="Skip to content">Preskoči na sadržaj</a>
+
+  <!-- ===================================================================
+       IKONE (sprite). Ikonu koristiš ovako:
+       <svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg>
+       Novu ikonu dodaš kao novi <symbol id="i-ime"> (crtež 24 x 24).
+       =================================================================== -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8.5 5.5-13.6 14-14 0 9-5.4 14-14 14z"/><path d="M5 19c3.2-4.4 6.4-7.4 10.2-9.6"/></symbol>
+    <symbol id="i-basket" viewBox="0 0 24 24"><path d="M3.5 10h17l-1.7 8.3a2 2 0 0 1-2 1.7H7.2a2 2 0 0 1-2-1.7L3.5 10z"/><path d="M8 10l3-5.5M16 10l-3-5.5M9.5 13.5v3M12 13.5v3M14.5 13.5v3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2.5"/></symbol>
+    <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M14 14.6V5a2 2 0 0 0-4 0v9.6a4 4 0 1 0 4 0z"/><path d="M12 10v6.5"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2.5 6.5h11v10h-11zM13.5 9.5h4.2l3.3 3.6v3.4h-7.5"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 8V6.5A1.5 1.5 0 0 0 17.5 5H6a2 2 0 0 0 0 4h13.5a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V7"/><circle cx="16.5" cy="14" r="1"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 11 12 4.5l8.5 6.5"/><path d="M6 9.5V19.5h12V9.5M10 19.5v-5h4v5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.3 4.3L19 7.2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19.5v-15M6 10.5l6-6 6 6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.2 4h3.3l1.7 4.3-2.1 1.4a11 11 0 0 0 6.2 6.2l1.4-2.1 4.3 1.7v3.3a1.6 1.6 0 0 1-1.7 1.6A16 16 0 0 1 3.6 5.7 1.6 1.6 0 0 1 5.2 4z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.8 6.6 12 12.8l8.2-6.2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.6a8 8 0 0 1-11.6 7.1L4 20l1.3-4.2A8 8 0 1 1 20 11.6z"/><path d="M9 10.5c.4 1.7 2 3.4 4 4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.1-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.9 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.3"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5l-8.5 8.5M18 14v4.5a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1H10"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.7"/><circle cx="17.1" cy="6.9" r=".6"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14.5 21v-7h2.4l.4-3h-2.8V9.3c0-.9.3-1.5 1.5-1.5h1.4V5.2a19 19 0 0 0-2.1-.1c-2.1 0-3.6 1.3-3.6 3.7V11H9.4v3h2.3v7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7.5h16M4 12h16M4 16.5h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-olive" viewBox="0 0 24 24"><ellipse cx="10" cy="14" rx="5" ry="6.6" transform="rotate(-24 10 14)"/><path d="M12.8 7.4C14.6 4.2 17.6 3 21 2.8c-1 3.3-3.9 5.1-8.2 4.6z"/></symbol>
+  </svg>
+
+
+  <!-- ===================================================================
+       ZAGLAVLJE (logo, izbornik, jezik, gumb Naruči)
+       data-header = JavaScript dodaje sjenu kad se stranica pomakne
+       =================================================================== -->
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+
+      <!-- Logo: klik vodi na vrh stranice. PROMIJENI: ime brenda -->
+      <a class="brand" href="#top" aria-label="Crvenica, na vrh stranice" data-en-aria-label="Crvenica, back to top">
+        <!-- Znak (maslina s listom), boja dolazi iz CSS-a -->
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <ellipse cx="13" cy="19" rx="7" ry="9.4" transform="rotate(-24 13 19)" fill="currentColor"/>
+          <ellipse cx="10.8" cy="15.4" rx="1.7" ry="2.7" transform="rotate(-24 10.8 15.4)" fill="var(--color-paper)" opacity=".55"/>
+          <path d="M16.6 10.6c2.3-4.4 6.2-6.4 11-6.8-1.6 4.5-5.2 7.1-11 6.8z" fill="var(--color-terra)"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">Crvenica</span>
+          <span class="brand__tag" data-en="Olive oil · Istria">Maslinovo ulje · Istra</span>
+        </span>
+      </a>
+
+      <!-- Glavni izbornik. Na mobitelu postaje prozor preko cijelog ekrana. -->
+      <nav class="site-nav" id="site-nav" aria-label="Glavni izbornik" data-en-aria-label="Main menu" data-nav>
+        <ul class="site-nav__list">
+          <!-- Svaki link vodi na sekciju s istim id-jem (href="#about" -> id="about") -->
+          <li><a class="site-nav__link" href="#about" data-en="About">O nama</a></li>
+          <li><a class="site-nav__link" href="#oil" data-en="The oil">Ulje</a></li>
+          <li><a class="site-nav__link" href="#harvest" data-en="Harvest">Berba</a></li>
+          <li><a class="site-nav__link" href="#pricing" data-en="Prices">Cijenik</a></li>
+          <li><a class="site-nav__link" href="#faq" data-en="FAQ">Pitanja</a></li>
+          <li><a class="site-nav__link" href="#contact" data-en="Contact">Kontakt</a></li>
+        </ul>
+
+        <!-- Ovaj dio se vidi samo u izborniku na mobitelu -->
+        <div class="site-nav__extra">
+          <a class="btn btn--primary btn--block" href="#contact">
+            <span data-en="Order or ask">Naruči ili pitaj</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
+          <p class="site-nav__contact">
+            <a data-href="phone" href="tel:+385912345678" data-fill="phone">+385 91 234 5678</a>
+            <a data-href="email" href="mailto:info@crvenica.hr" data-fill="email">info@crvenica.hr</a>
+          </p>
+        </div>
+      </nav>
+
+      <!-- Desni dio zaglavlja: jezik, gumb Naruči i gumb za izbornik na mobitelu -->
+      <div class="site-header__actions">
+        <!-- Prebacivanje jezika. data-lang-btn kaže JavaScriptu koji jezik gumb uključuje. -->
+        <div class="lang-switch" role="group" aria-label="Jezik / Language">
+          <button class="lang-switch__btn" type="button" data-lang-btn="hr" aria-pressed="true" lang="hr" title="Hrvatski">HR</button>
+          <button class="lang-switch__btn" type="button" data-lang-btn="en" aria-pressed="false" lang="en" title="English">EN</button>
+        </div>
+
+        <!-- Gumb Naruči u zaglavlju (na manjim ekranima se skriva) -->
+        <a class="btn btn--primary btn--small header-cta" href="#pricing" data-en="Order">Naruči</a>
+
+        <!-- Gumb za izbornik (vidi se samo na mobitelu i tabletu) -->
+        <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Otvori izbornik" data-nav-toggle>
+          <svg class="icon nav-toggle__open" aria-hidden="true"><use href="#i-menu"></use></svg>
+          <svg class="icon nav-toggle__close" aria-hidden="true"><use href="#i-close"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <main id="main">
+
+    <!-- =================================================================
+         HERO (prvi ekran)
+         ================================================================= -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+
+        <!-- Lijeva strana: tekst -->
+        <div class="hero__content">
+          <!-- Mali natpis iznad naslova -->
+          <p class="eyebrow" data-en="Extra virgin olive oil from Istria">Ekstra djevičansko maslinovo ulje iz Istre</p>
+
+          <!-- Glavni naslov stranice (smije biti samo jedan h1). <em> = riječ u boji crvenice -->
+          <h1 class="hero__title" id="hero-title" data-en-html="Oil from the <em>red</em> earth.">Ulje s <em>crvene</em> zemlje.</h1>
+
+          <!-- Uvodni tekst ispod naslova -->
+          <p class="hero__lead" data-en="Our olives grow in Istria's red soil, with no spraying and no synthetic fertiliser. We pick them by hand and take them to the mill the same day.">Naše masline rastu na istarskoj crvenici, bez prskanja i bez umjetnih gnojiva. Beremo ih ručno i isti dan nosimo u uljaru.</p>
+
+          <!-- Gumbi -->
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--large" href="#pricing">
+              <span data-en="See prices">Pogledaj cijenik</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+            <a class="btn btn--ghost btn--large" href="#harvest" data-en="How we work">Kako radimo</a>
+          </div>
+
+          <!-- Obavijest o berbi. Godinu upisuje JavaScript (SETTINGS.harvestYear). PROMIJENI tekst kad berba završi. -->
+          <p class="hero__notice">
+            <span class="hero__notice-dot" aria-hidden="true"></span>
+            <span><span data-en="The">Berba</span> <span data-fill="harvestYear">2026</span> <span data-en="harvest is under way. The first bottles of new oil ship in mid-November.">je u tijeku. Prve boce novog ulja šaljemo sredinom studenog.</span></span>
+          </p>
+        </div>
+
+        <!-- Desna strana: ilustracija u obliku luka, boca i pečat -->
+        <div class="hero__visual">
+          <div class="hero__arch">
+            <!-- PROMIJENI (po želji): umjesto ilustracije stavi pravu fotografiju maslinika, npr. assets/img/maslinik.webp -->
+            <img class="hero__landscape" src="assets/img/hero-landscape.svg" width="600" height="760" fetchpriority="high"
+                 alt="Ilustracija maslinika na crvenoj zemlji, iznad mora" data-en-alt="Illustration of an olive grove on red soil above the sea">
+          </div>
+          <!-- Boca preko luka -->
+          <img class="hero__bottle" src="assets/img/bottle-1l.svg" width="160" height="480"
+               alt="Boca maslinovog ulja od 1 L" data-en-alt="A 1 L bottle of our olive oil">
+          <!-- Pečat s godinom berbe -->
+          <p class="hero__seal" aria-hidden="true">
+            <span class="hero__seal-small" data-en="Harvest">Berba</span>
+            <span class="hero__seal-year" data-fill="harvestYear">2026</span>
+            <span class="hero__seal-small" data-en="Istria">Istra</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Traka s četiri glavne činjenice -->
+      <div class="container">
+        <ul class="hero__facts">
+          <li class="hero__fact"><svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg><span data-en="No spraying">Bez prskanja</span></li>
+          <li class="hero__fact"><svg class="icon" aria-hidden="true"><use href="#i-basket"></use></svg><span data-en="Picked by hand">Ručna berba</span></li>
+          <li class="hero__fact"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg><span data-en="Milled the same day">U uljari isti dan</span></li>
+          <li class="hero__fact"><svg class="icon" aria-hidden="true"><use href="#i-thermo"></use></svg><span data-en="Cold extracted, below 27 °C">Hladno cijeđeno, ispod 27 °C</span></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         O NAMA
+         PROMIJENI: imena, godina, broj stabala i ostali podaci su primjer.
+         ================================================================= -->
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="container about__grid">
+
+        <!-- Lijevo: crtež maslinove grane na "pločici" -->
+        <figure class="about__media plate">
+          <!-- PROMIJENI (po želji): ovdje može ići fotografija obitelji ili maslinika -->
+          <img class="plate__img" src="assets/img/olive-branch.svg" width="440" height="620" loading="lazy"
+               alt="Crtež maslinove grane s listovima i plodovima" data-en-alt="Drawing of an olive branch with leaves and fruit">
+          <figcaption class="plate__caption">
+            <em lang="la">Olea europaea L.</em>
+            <span data-en="A fruiting branch in October">Grana s plodovima u listopadu</span>
+          </figcaption>
+        </figure>
+
+        <!-- Desno: priča -->
+        <div class="about__body">
+          <p class="eyebrow" data-en="About us">O nama</p>
+          <h2 class="section-title" id="about-title" data-en="Our grandfather planted the grove.">Maslinik je posadio nono.</h2>
+
+          <div class="about__text">
+            <p data-en="Nono Bepi, our grandfather, planted the first trees in 1974, on land that used to be a vineyard. Today the two of us look after 640 trees, and the kids come to help at weekends during the harvest.">Prva stabla posadio je nono Bepi 1974., na zemlji gdje je prije bio vinograd. Danas se o 640 stabala brinemo nas dvoje, a djeca vikendom dolaze na berbu.</p>
+            <p data-en="We don't spray, not against the olive fly and not against weeds. We mow the grass between the trees and give the prunings back to the soil. We get a smaller crop that way, but this is the oil our own family eats.">Ne prskamo, ni protiv muhe ni protiv korova. Travu između stabala kosimo, a granje od rezidbe vraćamo zemlji. Prinos je zato manji, ali ovo ulje prije svega jedemo mi.</p>
+            <p data-en="We sell what's left once our own tins are full. Some years that's a lot, some years not much. When it's gone, it's gone until the next harvest.">Prodajemo ono što ostane nakon što napunimo svoje kante. Neke godine to je puno, neke malo. Kad nestane, nestalo je do iduće berbe.</p>
+          </div>
+
+          <!-- Potpis. PROMIJENI: imena -->
+          <p class="about__signature" data-en="Ana and Marko">Ana i Marko</p>
+
+          <!-- Podaci o masliniku (kao na istarskim kartama maslinara). Novi red = novi <div> s <dt> i <dd>. -->
+          <dl class="facts-list">
+            <div class="facts-list__row"><dt data-en="Trees">Stabala</dt><dd>640</dd></div>
+            <div class="facts-list__row"><dt data-en="Varieties">Sorte</dt><dd data-en="Istarska bjelica, buža, leccino">istarska bjelica, buža, leccino</dd></div>
+            <div class="facts-list__row"><dt data-en="Soil">Tlo</dt><dd data-en="Red soil (terra rossa)">crvenica (terra rossa)</dd></div>
+            <div class="facts-list__row"><dt data-en="Altitude">Nadmorska visina</dt><dd>160 m</dd></div>
+            <div class="facts-list__row"><dt data-en="To the sea">Do mora</dt><dd>4 km</dd></div>
+            <div class="facts-list__row"><dt data-en="Harvest">Berba</dt><dd data-en="October and November">listopad i studeni</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         TRAKA: ISTRA (činjenica o regiji, s izvorom)
+         Broj ažuriraj kad izađe novo izdanje vodiča Flos Olei.
+         ================================================================= -->
+    <section class="istria" id="istra" aria-label="Istra" data-en-aria-label="Istria">
+      <div class="container istria__inner">
+        <!-- Veliki broj -->
+        <p class="istria__number" aria-hidden="true">10<span>×</span></p>
+        <div class="istria__text">
+          <p class="istria__statement" data-en="That's how many times the Flos Olei guide has named Istria the best olive-growing region in the world.">Toliko je puta vodič Flos Olei proglasio Istru najboljom maslinarskom regijom na svijetu.</p>
+          <p data-en="The red soil, the sun and the nearby sea do a lot of the work. We just try not to spoil it.">Crvena zemlja, sunce i blizina mora odrade velik dio posla. Mi se trudimo to ne pokvariti.</p>
+          <!-- Izvor podatka (otvara se u novoj kartici) -->
+          <a class="istria__source" href="https://www.istra.hr/hr/top-news/istra-deseti-put-najbolja-maslinarska-regija-svijeta" target="_blank" rel="noopener">
+            <span data-en="Source: Istria Tourist Board">Izvor: Turistička zajednica Istre</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         ULJE (tamna sekcija: okus, analiza, sorte, uz što ide)
+         PROMIJENI: sve brojke su PRIMJER. Upiši vrijednosti iz svog laboratorijskog nalaza.
+         Trake se crtaju same iz brojeva u style="--value: ...".
+         ================================================================= -->
+    <section class="section section--dark oil" id="oil" aria-labelledby="oil-title">
+      <div class="container">
+
+        <!-- Naslov sekcije u dva stupca -->
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow" data-en="The oil">Ulje</p>
+            <h2 class="section-title" id="oil-title" data-en="What's in the bottle.">Što je u boci.</h2>
+          </div>
+          <p class="section-lead" data-en="Extra virgin olive oil, a blend of three varieties from our grove. Every harvest goes to a lab, and these are the numbers from the report.">Ekstra djevičansko maslinovo ulje, mješavina tri sorte s našeg maslinika. Svaku berbu šaljemo na analizu i ovdje pišemo brojke iz nalaza.</p>
+        </header>
+
+        <!-- Četiri ploče u mreži 2 x 2 -->
+        <div class="oil__grid">
+
+          <!-- PLOČA 1: OKUS. --value je ocjena od 0 do 10. -->
+          <article class="panel" data-animate>
+            <h3 class="panel__title" data-en="Taste">Okus</h3>
+            <p class="panel__text" data-en="Young oil is bitter and peppery. That's a good sign, and it mellows over the months.">Mlado ulje je gorko i ljuto. To je dobar znak, a s mjesecima postaje blaže.</p>
+            <ul class="taste">
+              <li class="taste__row">
+                <span class="taste__label" data-en="Fruitiness">Voćnost</span>
+                <span class="meter" style="--value: 7" aria-hidden="true"></span>
+                <span class="taste__value">7/10</span>
+              </li>
+              <li class="taste__row">
+                <span class="taste__label" data-en="Bitterness">Gorčina</span>
+                <span class="meter" style="--value: 6" aria-hidden="true"></span>
+                <span class="taste__value">6/10</span>
+              </li>
+              <li class="taste__row">
+                <span class="taste__label" data-en="Pungency">Pikantnost</span>
+                <span class="meter" style="--value: 7" aria-hidden="true"></span>
+                <span class="taste__value">7/10</span>
+              </li>
+            </ul>
+            <p class="panel__label" data-en="On the nose">Miris</p>
+            <ul class="tags">
+              <li class="tag" data-en="cut grass">svježe pokošena trava</li>
+              <li class="tag" data-en="tomato leaf">list rajčice</li>
+              <li class="tag" data-en="artichoke">artičoka</li>
+              <li class="tag" data-en="green almond">zeleni badem</li>
+            </ul>
+          </article>
+
+          <!-- PLOČA 2: ANALIZA. --value = vaš rezultat, --max = desni kraj trake (zakonska granica) -->
+          <article class="panel" data-animate>
+            <h3 class="panel__title">
+              <span data-en="Lab results">Analiza</span>
+              <span class="tag tag--small"><span data-en="Harvest">Berba</span> <span data-fill="harvestYear">2026</span></span>
+            </h3>
+            <ul class="lab">
+              <li class="lab__row">
+                <p class="lab__head"><span class="lab__name" data-en="Acidity">Kiselost</span><span class="lab__value" data-en="0.16%">0,16 %</span></p>
+                <span class="lab__track" style="--value: 0.16; --max: 0.8" aria-hidden="true"><span class="lab__fill"></span></span>
+                <p class="lab__caption" data-en="Lower is better. The extra virgin limit is 0.8%.">Manje je bolje. Granica za ekstra djevičansko je 0,8 %.</p>
+              </li>
+              <li class="lab__row">
+                <p class="lab__head"><span class="lab__name" data-en="Peroxide value">Peroksidni broj</span><span class="lab__value" data-en-html="5.1 mEq O<sub>2</sub>/kg">5,1 mEq O<sub>2</sub>/kg</span></p>
+                <span class="lab__track" style="--value: 5.1; --max: 20" aria-hidden="true"><span class="lab__fill"></span></span>
+                <p class="lab__caption" data-en="Lower is better. The limit is 20.">Manje je bolje. Granica je 20.</p>
+              </li>
+              <li class="lab__row">
+                <p class="lab__head"><span class="lab__name" data-en="Polyphenols">Polifenoli</span><span class="lab__value">540 mg/kg</span></p>
+                <span class="lab__track lab__track--more" style="--value: 540; --max: 1000" aria-hidden="true"><span class="lab__fill"></span></span>
+                <p class="lab__caption" data-en="They're where the bitterness and pepper come from. The more there are, the longer the oil stays fresh.">Od njih dolaze gorčina i ljutina. Što ih je više, ulje dulje ostaje svježe.</p>
+              </li>
+            </ul>
+          </article>
+
+          <!-- PLOČA 3: SORTE. --share = postotak sorte u mješavini (zbroj treba biti 100) -->
+          <article class="panel" data-animate>
+            <h3 class="panel__title" data-en="Varieties">Sorte</h3>
+            <!-- Traka s udjelima sorti -->
+            <div class="blend" aria-hidden="true">
+              <span class="blend__part blend__part--1" style="--share: 55"></span>
+              <span class="blend__part blend__part--2" style="--share: 30"></span>
+              <span class="blend__part blend__part--3" style="--share: 15"></span>
+            </div>
+            <ul class="blend-legend">
+              <li class="blend-legend__item">
+                <span class="blend-legend__swatch blend-legend__swatch--1" aria-hidden="true"></span>
+                <p class="blend-legend__name" data-en-html="Istarska bjelica <span>55%</span>">Istarska bjelica <span>55 %</span></p>
+                <p class="blend-legend__text" data-en="The most bitter and peppery of the three. It gives the oil its backbone.">Najgorča i najljuća od tri. Ulju daje snagu.</p>
+              </li>
+              <li class="blend-legend__item">
+                <span class="blend-legend__swatch blend-legend__swatch--2" aria-hidden="true"></span>
+                <p class="blend-legend__name" data-en-html="Buža <span>30%</span>">Buža <span>30 %</span></p>
+                <p class="blend-legend__text" data-en="The most widespread variety in Istria. Softer, with green tomato and almond.">Najraširenija istarska sorta. Mekša, s mirisom zelene rajčice i badema.</p>
+              </li>
+              <li class="blend-legend__item">
+                <span class="blend-legend__swatch blend-legend__swatch--3" aria-hidden="true"></span>
+                <p class="blend-legend__name" data-en-html="Leccino <span>15%</span>">Leccino <span>15 %</span></p>
+                <p class="blend-legend__text" data-en="Mild and fruity, it rounds out the blend.">Blaga i voćna, zaokružuje mješavinu.</p>
+              </li>
+            </ul>
+          </article>
+
+          <!-- PLOČA 4: UZ ŠTO IDE -->
+          <article class="panel">
+            <h3 class="panel__title" data-en="What to pour it on">Uz što ide</h3>
+            <ul class="pairing">
+              <li data-en="Fish off the grill">Riba s gradela</li>
+              <li data-en="Maneštra, the Istrian bean and corn soup">Maneštra od bobića</li>
+              <li data-en="Wild asparagus frittata">Fritaja sa šparogama</li>
+              <li data-en="Bread, tomato and a pinch of salt">Kruh, rajčica i malo soli</li>
+              <li class="pairing__surprise" data-en="Vanilla ice cream. Yes, really.">Sladoled od vanilije. Da, stvarno.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Napomena ispod ploča -->
+        <p class="oil__footnote">
+          <span data-en="Ask us and we'll send you the full lab report for the">Cijeli nalaz laboratorija za berbu</span>
+          <span data-fill="harvestYear">2026</span>
+          <span data-en="harvest.">šaljemo na upit.</span>
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         BERBA (godina u masliniku + tri koraka)
+         Kalendar: --start = mjesec početka (1 = siječanj), --span = koliko mjeseci traje.
+         ================================================================= -->
+    <section class="section section--sage harvest" id="harvest" aria-labelledby="harvest-title">
+      <div class="container">
+
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow" data-en="Harvest">Berba</p>
+            <h2 class="section-title" id="harvest-title" data-en="A year in the grove.">Godina u masliniku.</h2>
+          </div>
+          <p class="section-lead" data-en="The oil is made in a few weeks of harvest. The rest of the year goes into looking after the trees.">Ulje nastaje u nekoliko tjedana berbe. Ostatak godine brinemo se o stablima.</p>
+        </header>
+
+        <!-- Kalendar. data-calendar = JavaScript upisuje nazive mjeseci i crtu "sada". -->
+        <div class="calendar" data-calendar data-animate>
+          <div class="calendar__body">
+
+            <!-- Nazivi mjeseci (JavaScript ih prevodi; ovo je rezerva ako je JS isključen).
+                 data-short = jedno slovo koje se vidi na uskom mobitelu. -->
+            <div class="calendar__months" aria-hidden="true">
+              <span class="calendar__month" data-short="S">sij</span><span class="calendar__month" data-short="V">velj</span><span class="calendar__month" data-short="O">ožu</span>
+              <span class="calendar__month" data-short="T">tra</span><span class="calendar__month" data-short="S">svi</span><span class="calendar__month" data-short="L">lip</span>
+              <span class="calendar__month" data-short="S">srp</span><span class="calendar__month" data-short="K">kol</span><span class="calendar__month" data-short="R">ruj</span>
+              <span class="calendar__month" data-short="L">lis</span><span class="calendar__month" data-short="S">stu</span><span class="calendar__month" data-short="P">pro</span>
+            </div>
+
+            <!-- Redovi s poslovima. Novi posao = kopiraj jedan <li> i promijeni --start, --span i tekst.
+                 Skriveni tekst (visually-hidden) čitaju čitači ekrana za slijepe. -->
+            <ol class="calendar__rows">
+              <li class="calendar__row" style="--start: 2; --span: 3">
+                <span class="calendar__label" data-en="Pruning">Rezidba</span>
+                <span class="calendar__track"><span class="calendar__bar"><span class="visually-hidden" data-en="February to April">veljača do travnja</span></span></span>
+              </li>
+              <li class="calendar__row" style="--start: 4; --span: 6">
+                <span class="calendar__label" data-en="Mowing, no herbicides">Košnja trave, bez herbicida</span>
+                <span class="calendar__track"><span class="calendar__bar"><span class="visually-hidden" data-en="April to September">travanj do rujna</span></span></span>
+              </li>
+              <li class="calendar__row" style="--start: 5; --span: 2">
+                <span class="calendar__label" data-en="Flowering">Cvatnja</span>
+                <span class="calendar__track"><span class="calendar__bar"><span class="visually-hidden" data-en="May to June">svibanj do lipnja</span></span></span>
+              </li>
+              <li class="calendar__row" style="--start: 6; --span: 4">
+                <span class="calendar__label" data-en="Fruit growing">Rast ploda</span>
+                <span class="calendar__track"><span class="calendar__bar"><span class="visually-hidden" data-en="June to September">lipanj do rujna</span></span></span>
+              </li>
+              <!-- calendar__row--harvest = traka u boji crvenice -->
+              <li class="calendar__row calendar__row--harvest" style="--start: 10; --span: 2">
+                <span class="calendar__label" data-en="Harvest and milling">Berba i uljara</span>
+                <span class="calendar__track"><span class="calendar__bar"><span class="visually-hidden" data-en="October to November">listopad do studenog</span></span></span>
+              </li>
+              <!-- calendar__row--oil = traka u zlatnoj boji ulja -->
+              <li class="calendar__row calendar__row--oil" style="--start: 11; --span: 2">
+                <span class="calendar__label" data-en="New oil">Novo ulje</span>
+                <span class="calendar__track"><span class="calendar__bar"><span class="visually-hidden" data-en="November to December">studeni do prosinca</span></span></span>
+              </li>
+            </ol>
+
+            <!-- Okomita crta "sada" (položaj i tekst postavlja JavaScript prema današnjem datumu) -->
+            <span class="calendar__now" data-calendar-now aria-hidden="true"><span class="calendar__now-label"></span></span>
+          </div>
+        </div>
+
+        <!-- Tri koraka od stabla do boce -->
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num" aria-hidden="true">1</span>
+            <h3 class="step__title" data-en="By hand, onto nets">Ručno, na mreže</h3>
+            <p class="step__text" data-en="We pick by hand and with small rakes, onto nets spread under each tree. The olives never touch the ground or sit waiting in sacks.">Beremo ručno i malim grabljicama, na mreže razapete ispod stabla. Masline ne padaju na zemlju i ne čekaju u vrećama.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">2</span>
+            <h3 class="step__title" data-en="Milled the same day">U uljari isti dan</h3>
+            <p class="step__text" data-en="Less than six hours pass between tree and mill. The oil is extracted cold, below 27 °C, so it keeps its aroma.">Od stabla do uljare prođe manje od šest sati. Ulje se cijedi hladno, ispod 27 °C, da zadrži miris.</p>
+          </li>
+          <li class="step">
+            <span class="step__num" aria-hidden="true">3</span>
+            <h3 class="step__title" data-en="Filled to order">Punimo po narudžbi</h3>
+            <p class="step__text" data-en="The oil rests in stainless steel tanks, cool and in the dark. It goes into a bottle or tin only when your order comes in.">Ulje odmara u inox posudama, u mraku i hladu. U bocu ili limenku ide tek kad stigne vaša narudžba.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         CIJENIK (tri paketa, od najjeftinijeg do najskupljeg)
+         Na svakoj kartici:
+           data-package = kratki naziv paketa (bez razmaka)
+           data-price   = cijena u eurima (samo broj)
+           data-liters  = koliko litara
+         Prikaz cijene, cijena po litri i ušteda računaju se same (script.js, PART 8).
+         Novi paket: kopiraj cijelu <article class="package"> i promijeni podatke.
+         ================================================================= -->
+    <section class="section pricing" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+
+        <header class="section-head section-head--center">
+          <p class="eyebrow" data-en="Prices">Cijenik</p>
+          <h2 class="section-title" id="pricing-title" data-en="Same oil, three sizes.">Isto ulje, tri veličine.</h2>
+          <p class="section-lead" data-en="The only difference is the packaging. The bigger it is, the less you pay per litre.">Razlika je samo u pakiranju. Što je pakiranje veće, litra je jeftinija.</p>
+        </header>
+
+        <div class="pricing__grid">
+
+          <!-- PAKET 1: 1 L -->
+          <article class="package" data-package="1l" data-price="20" data-liters="1" aria-labelledby="package-1l">
+            <div class="package__media">
+              <img class="package__img package__img--bottle" src="assets/img/bottle-1l.svg" width="160" height="480" loading="lazy"
+                   alt="Boca maslinovog ulja od 1 L" data-en-alt="A 1 L bottle of olive oil">
+            </div>
+            <h3 class="package__name" id="package-1l" data-package-name data-en="First bottle">Prva boca</h3>
+            <p class="package__size" data-en="Dark glass bottle · 1 L">Tamna staklena boca · 1 L</p>
+            <!-- Cijenu ispisuje JavaScript iz data-price (ovaj broj je samo rezerva) -->
+            <p class="package__price" data-package-price>20 €</p>
+            <p class="package__per-liter" data-package-per-liter></p>
+            <p class="package__saving" data-package-saving hidden></p>
+            <p class="package__desc" data-en="For a first taste, or a gift for someone who knows good oil.">Za prvo kušanje ili za poklon nekome tko zna što je dobro ulje.</p>
+            <ul class="package__features">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-en="One 1 L bottle">1 boca od 1 L</span></li>
+              <!-- Tekst o dostavi upisuje JavaScript (prema SETTINGS) -->
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-package-delivery></span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span><span data-en="Oil from the">Ulje iz berbe</span> <span data-fill="harvestYear">2026</span><span data-en=" harvest"></span></span></li>
+            </ul>
+            <a class="btn btn--outline btn--block package__cta" href="#contact" data-order="1l">
+              <span data-en="Order a bottle">Naruči bocu</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </article>
+
+          <!-- PAKET 2: 5 L (istaknut: package--featured) -->
+          <article class="package package--featured" data-package="5l" data-price="85" data-liters="5" aria-labelledby="package-5l">
+            <p class="package__badge" data-en="Our pick">Naš izbor</p>
+            <div class="package__media">
+              <img class="package__img package__img--tin" src="assets/img/tin-5l.svg" width="200" height="300" loading="lazy"
+                   alt="Limenka maslinovog ulja od 5 L" data-en-alt="A 5 L tin of olive oil">
+            </div>
+            <h3 class="package__name" id="package-5l" data-package-name data-en="For the kitchen">Za kuću</h3>
+            <p class="package__size" data-en="Tin · 5 L">Limenka · 5 L</p>
+            <p class="package__price" data-package-price>85 €</p>
+            <p class="package__per-liter" data-package-per-liter></p>
+            <p class="package__saving" data-package-saving hidden></p>
+            <p class="package__desc" data-en="This is how Istrian households buy it. The tin keeps out the light, and it's easy to fill a bottle for the table.">Tako ulje kupuju istarske kuće. Limenka ne propušta svjetlo, a iz nje lako napunite bocu za stol.</p>
+            <ul class="package__features">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-en="One 5 L tin">1 limenka od 5 L</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-package-delivery></span></li>
+              <!-- PROMIJENI: poklon uz paket je prijedlog -->
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-en="A free 0.5 L glass bottle for decanting">Staklena boca od 0,5 L gratis, za pretakanje</span></li>
+            </ul>
+            <a class="btn btn--primary btn--block package__cta" href="#contact" data-order="5l">
+              <span data-en="Order a tin">Naruči limenku</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </article>
+
+          <!-- PAKET 3: 20 L -->
+          <article class="package" data-package="20l" data-price="300" data-liters="20" aria-labelledby="package-20l">
+            <div class="package__media">
+              <img class="package__img package__img--tins" src="assets/img/tins-20l.svg" width="345" height="258" loading="lazy"
+                   alt="Četiri limenke maslinovog ulja od 5 L" data-en-alt="Four 5 L tins of olive oil">
+            </div>
+            <h3 class="package__name" id="package-20l" data-package-name data-en="Until next harvest">Do iduće berbe</h3>
+            <p class="package__size" data-en="4 tins · 20 L">4 limenke · 20 L</p>
+            <p class="package__price" data-package-price>300 €</p>
+            <p class="package__per-liter" data-package-per-liter></p>
+            <p class="package__saving" data-package-saving hidden></p>
+            <p class="package__desc" data-en="Roughly a year's supply for a home that cooks with olive oil. Open one tin at a time and the rest stay sealed and fresh.">Otprilike godišnja zaliha za kuću u kojoj se kuha na maslinovom ulju. Otvarate limenku po limenku, ostale ostaju zatvorene i svježe.</p>
+            <ul class="package__features">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-en="Four 5 L tins">4 limenke od 5 L</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-package-delivery></span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-en="Set aside for you right after the harvest">Rezerviramo ih odmah nakon berbe</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span data-en="Two free 0.5 L bottles">Dvije boce od 0,5 L gratis</span></li>
+            </ul>
+            <a class="btn btn--outline btn--block package__cta" href="#contact" data-order="20l">
+              <span data-en="Order 20 L">Naruči zalihu</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </article>
+        </div>
+
+        <!-- Tri informacije ispod cijenika -->
+        <ul class="info-row">
+          <li class="info-item">
+            <svg class="icon info-item__icon" aria-hidden="true"><use href="#i-truck"></use></svg>
+            <h3 class="info-item__title" data-en="Delivery">Dostava</h3>
+            <!-- Iznose upisuje JavaScript iz SETTINGS (deliveryPrice i freeDeliveryFrom) -->
+            <p class="info-item__text">
+              <span data-en="We ship anywhere in Croatia, and parcels usually arrive in 2 to 3 working days. Delivery is">Šaljemo po cijeloj Hrvatskoj, a paket obično stiže za 2 do 3 radna dana. Dostava je</span>
+              <span data-fill="deliveryPrice">5 €</span><span data-en=", free on orders from">, a za narudžbe od</span>
+              <span data-fill="freeDeliveryFrom">85 €</span><span data-en=".">&nbsp;besplatna.</span>
+            </p>
+          </li>
+          <li class="info-item">
+            <svg class="icon info-item__icon" aria-hidden="true"><use href="#i-wallet"></use></svg>
+            <h3 class="info-item__title" data-en="Payment">Plaćanje</h3>
+            <p class="info-item__text" data-en="Cash on delivery or bank transfer. We email the invoice and details as soon as we confirm your order.">Pouzećem ili uplatom na račun. Račun i upute pošaljemo emailom čim potvrdimo narudžbu.</p>
+          </li>
+          <li class="info-item">
+            <svg class="icon info-item__icon" aria-hidden="true"><use href="#i-home"></use></svg>
+            <h3 class="info-item__title" data-en="Collect in person">Osobno preuzimanje</h3>
+            <p class="info-item__text" data-en="Come and collect the oil from us and taste it while you're here. Just call a day ahead.">Dođite po ulje k nama i kušajte ga na licu mjesta. Samo nas nazovite dan ranije.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         PITANJA (FAQ). Svako pitanje je <details>: klik otvara odgovor.
+         name="faq" = kad se otvori jedno pitanje, ostala se zatvore.
+         Novo pitanje: kopiraj cijeli <details> blok.
+         ================================================================= -->
+    <section class="section section--deep faq" id="faq" aria-labelledby="faq-title">
+      <div class="container faq__grid">
+
+        <div class="faq__intro">
+          <p class="eyebrow" data-en="FAQ">Pitanja</p>
+          <h2 class="section-title" id="faq-title" data-en="What people usually ask.">Što nas najčešće pitaju.</h2>
+          <p class="section-lead" data-en="If your question isn't here, write or call. We'd rather explain than have you buy blind.">Ako ovdje nema odgovora, pišite nam ili nazovite. Radije ćemo objasniti nego da kupite naslijepo.</p>
+          <a class="link-arrow" href="#contact" data-order="question">
+            <span data-en="Ask a question">Postavite pitanje</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="Is it certified organic?">Imate li eko certifikat?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="No. We don't spray or use synthetic fertiliser, but we haven't been through certification, so by law we can't call the oil organic. You're welcome to come and see the grove; we prefer that to paperwork.">Nemamo. Ne prskamo i ne koristimo umjetna gnojiva, ali certifikaciju nismo prošli, pa ulje po zakonu ne smijemo zvati ekološkim. Možete doći i vidjeti maslinik, to nam je draže od papira.</p></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="Why is it bitter and peppery?">Zašto je ulje gorko i peče u grlu?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="That's what fresh oil from olives picked at the right time does. The bitterness and pepper come from polyphenols and calm down over the months. Oil with no bite at all is usually old, or made from overripe olives.">Tako se ponaša svježe ulje od maslina branih na vrijeme. Gorčina i pikantnost dolaze od polifenola i s mjesecima se smiruju. Ulje koje ne peče baš ništa obično je staro ili od prezrelih maslina.</p></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="How should I store it?">Kako čuvati ulje?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="Somewhere cool and dark, away from the stove, with the cap on tight. Sealed, it keeps for about 18 months. Once a tin is open, use it within two or three months.">Na tamnom i hladnom mjestu, dalje od štednjaka, dobro zatvoreno. Zatvoreno traje oko 18 mjeseci. Otvorenu limenku potrošite u dva do tri mjeseca.</p></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="How do I pay, and when does it arrive?">Kako plaćam i kada stiže paket?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="After you order, we confirm by email or text. You pay cash on delivery or by bank transfer, and the parcel usually arrives in 2 to 3 working days.">Nakon narudžbe javimo se emailom ili porukom s potvrdom. Plaćate pouzećem ili uplatom na račun, a paket obično stiže za 2 do 3 radna dana.</p></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="Do you ship abroad?">Šaljete li u inozemstvo?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="For now, only within Croatia. If you're in Slovenia, Austria or Germany, write to us and we'll see what we can do.">Za sada samo po Hrvatskoj. Ako ste iz Slovenije, Austrije ili Njemačke, pišite nam pa ćemo vidjeti što se može.</p></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="Can I come and buy it from you?">Mogu li doći kupiti ulje kod vas?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="Of course, just call us the day before. We'll show you the grove and let you taste before you buy.">Možete, samo nas nazovite dan ranije. Pokazat ćemo vam maslinik i dati da kušate prije nego što kupite.</p></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__q"><span data-en="When is the new oil ready?">Kada stiže ulje nove berbe?</span><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></summary>
+            <div class="faq-item__a"><p data-en="We pick from mid-October to mid-November. The first bottles of new oil go out in mid-November, while it lasts.">Beremo od sredine listopada do sredine studenog. Prve boce novog ulja šaljemo sredinom studenog, dok ga ima.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         KONTAKT I NARUDŽBA (podaci + forma "pošalji poruku")
+         Forma šalje preko Web3Forms (ključ u script.js, PART 1).
+         Dok ključ nije upisan, forma otvara email program s pripremljenom porukom.
+         ================================================================= -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact__grid">
+
+        <!-- Lijevo: podaci za kontakt -->
+        <div class="contact__info">
+          <p class="eyebrow" data-en="Order">Narudžba</p>
+          <h2 class="section-title" id="contact-title" data-en="Order, or just ask.">Naručite ili samo pitajte.</h2>
+          <p class="section-lead" data-en="We reply the same day. During the harvest, that's often in the evening.">Javljamo se isti dan. Za vrijeme berbe to je često tek navečer.</p>
+
+          <ul class="contact-list">
+            <li class="contact-list__item">
+              <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
+              <div>
+                <p class="contact-list__label" data-en="Phone and WhatsApp">Telefon i WhatsApp</p>
+                <!-- Broj se upisuje iz SETTINGS (script.js) -->
+                <a class="contact-list__value" data-href="phone" data-fill="phone" href="tel:+385912345678">+385 91 234 5678</a>
+                <a class="contact-list__extra" data-href="whatsapp" href="https://wa.me/385912345678" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg><span data-en="Message us on WhatsApp">Pošaljite poruku na WhatsApp</span>
+                </a>
+              </div>
+            </li>
+            <li class="contact-list__item">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"></use></svg>
+              <div>
+                <p class="contact-list__label">Email</p>
+                <a class="contact-list__value" data-href="email" data-fill="email" href="mailto:info@crvenica.hr">info@crvenica.hr</a>
+              </div>
+            </li>
+            <li class="contact-list__item">
+              <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+              <div>
+                <p class="contact-list__label" data-en="The farm">Imanje</p>
+                <!-- PROMIJENI: mjesto. Koordinate se mijenjaju u SETTINGS (farmLocation). -->
+                <p class="contact-list__value" data-en="Vodnjan, Istria">Vodnjan, Istra</p>
+                <p class="contact-list__coords" data-fill="coords">44.9597° N, 13.8517° E</p>
+                <a class="contact-list__extra" data-href="map" href="https://www.google.com/maps/search/?api=1&amp;query=44.9597,13.8517" target="_blank" rel="noopener">
+                  <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg><span data-en="Open in Google Maps">Otvori u Google kartama</span>
+                </a>
+              </div>
+            </li>
+            <li class="contact-list__item">
+              <svg class="icon" aria-hidden="true"><use href="#i-olive"></use></svg>
+              <div>
+                <p class="contact-list__label" data-en="Tastings">Kušanje</p>
+                <!-- PROMIJENI: kada primate goste -->
+                <p class="contact-list__value" data-en="By appointment, every day except Sunday">Uz najavu, svaki dan osim nedjelje</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Desno: forma. novalidate = provjeru radi JavaScript (s porukama na oba jezika). -->
+        <form class="order-form" id="order-form" data-order-form novalidate>
+
+          <!-- 1. Što želite (izbore stvara JavaScript iz kartica u cijeniku) -->
+          <fieldset class="field">
+            <legend class="field__label" data-en="What would you like?">Što vas zanima?</legend>
+            <div class="choice-cards" data-package-options></div>
+            <noscript><p class="field__hint">Za narudžbu nas nazovite ili pošaljite email. / To order, please call or email us.</p></noscript>
+          </fieldset>
+
+          <!-- 2. Dio forme samo za narudžbu (skriva se kad je odabrano "Samo pitanje") -->
+          <div class="form-grid" data-order-only>
+            <!-- Količina s gumbima - i + -->
+            <div class="field">
+              <label class="field__label" for="f-quantity" data-en="Quantity">Količina</label>
+              <div class="stepper">
+                <button class="stepper__btn" type="button" data-step="-1" aria-label="Manje" data-en-aria-label="Fewer">−</button>
+                <input class="field__input stepper__input" id="f-quantity" name="quantity" type="number" inputmode="numeric" min="1" max="20" value="1" data-field="quantity">
+                <button class="stepper__btn" type="button" data-step="1" aria-label="Više" data-en-aria-label="More">+</button>
+              </div>
+            </div>
+
+            <!-- Dostava ili preuzimanje -->
+            <fieldset class="field">
+              <legend class="field__label" data-en="How would you like to get it?">Kako želite preuzeti?</legend>
+              <div class="choice-row">
+                <label class="choice"><input type="radio" name="delivery" value="delivery" checked><span data-en="Delivery to my address">Dostava na adresu</span></label>
+                <label class="choice"><input type="radio" name="delivery" value="pickup"><span data-en="I'll collect it">Preuzimam kod vas</span></label>
+              </div>
+            </fieldset>
+
+            <!-- Adresa (vidi se samo kad je odabrana dostava) -->
+            <div class="field field--full" data-delivery-only>
+              <label class="field__label" for="f-address" data-en="Delivery address">Adresa za dostavu</label>
+              <textarea class="field__input" id="f-address" name="address" rows="2" maxlength="200" autocomplete="street-address" data-field="address"
+                        placeholder="Ulica i broj, poštanski broj, mjesto" data-en-placeholder="Street and number, postcode, town"></textarea>
+              <p class="field__error" id="f-address-error" hidden></p>
+            </div>
+          </div>
+
+          <!-- 3. Podaci o osobi -->
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="f-name" data-en="Full name">Ime i prezime</label>
+              <input class="field__input" id="f-name" name="name" type="text" maxlength="80" autocomplete="name" data-field="name">
+              <p class="field__error" id="f-name-error" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-email">Email</label>
+              <input class="field__input" id="f-email" name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" data-field="email">
+              <p class="field__error" id="f-email-error" hidden></p>
+            </div>
+            <div class="field">
+              <!-- Napomenu uz naslov (obavezno / nije obavezno) upisuje JavaScript -->
+              <label class="field__label" for="f-phone"><span data-en="Phone">Telefon</span> <span class="field__hint" data-hint="phone"></span></label>
+              <input class="field__input" id="f-phone" name="phone" type="tel" maxlength="30" autocomplete="tel" inputmode="tel" data-field="phone">
+              <p class="field__error" id="f-phone-error" hidden></p>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="f-message"><span data-en="Message">Poruka</span> <span class="field__hint" data-hint="message"></span></label>
+              <textarea class="field__input" id="f-message" name="message" rows="4" maxlength="2000" data-field="message"
+                        placeholder="Npr. do kada vam treba ulje ili pitanje o ulju" data-en-placeholder="E.g. when you need it by, or a question about the oil"></textarea>
+              <p class="field__error" id="f-message-error" hidden></p>
+            </div>
+          </div>
+
+          <!-- Zamka za spam robote: ljudi ovo polje ne vide. Ne briši. -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="f-website">Website</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <!-- 4. Sažetak narudžbe kao račun (redove upisuje JavaScript) -->
+          <div class="summary" data-order-only>
+            <p class="summary__title" data-en="Your order">Vaša narudžba</p>
+            <!-- aria-live: čitač ekrana pročita novi iznos kad se količina ili način preuzimanja promijeni -->
+            <dl class="summary__rows" data-summary aria-live="polite" aria-atomic="true"></dl>
+            <p class="summary__note" data-en="You won't pay anything yet. We'll get back to you to confirm and arrange payment.">Ovo još nije plaćanje. Javit ćemo se s potvrdom i podacima za uplatu.</p>
+          </div>
+
+          <!-- 5. Gumb za slanje i napomena o podacima -->
+          <div class="form-actions">
+            <button class="btn btn--primary btn--large" type="submit" data-submit>
+              <span data-submit-label>Pošalji poruku</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </button>
+            <p class="form-note" data-en="We only use these details for your order or our reply.">Podatke iz forme koristimo samo za ovu narudžbu ili odgovor.</p>
+          </div>
+
+          <!-- Poruka nakon slanja (uspjeh ili greška) -->
+          <p class="form-status" data-form-status role="status" tabindex="-1" hidden></p>
+        </form>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         PREDLOŽAK ZA NOVU SEKCIJU
+         Kopiraj sve između <section> i </section>, makni oznake komentara
+         i promijeni id, naslove i tekst. Za drugu boju pozadine dodaj:
+         section--dark (tamno zelena), section--sage (svijetlo zelena) ili section--deep (tamnija krem).
+
+    <section class="section galerija" id="galerija" aria-labelledby="galerija-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-en="Gallery">Galerija</p>
+          <h2 class="section-title" id="galerija-title" data-en="Title in English">Naslov na hrvatskom</h2>
+          <p class="section-lead" data-en="Intro in English">Uvodni tekst na hrvatskom.</p>
+        </header>
+        <p data-en="Content in English">Sadržaj na hrvatskom.</p>
+      </div>
+    </section>
+         ================================================================= -->
+
+  </main>
+
+
+  <!-- ===================================================================
+       PODNOŽJE
+       =================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Pozdrav na dnu -->
+      <div class="site-footer__top">
+        <p class="site-footer__signoff" lang="hr">Dobar tek.</p>
+        <!-- Prazno na hrvatskom, na engleskom objašnjava izraz -->
+        <p class="site-footer__signoff-note" data-en="That's Croatian for “enjoy your meal”."></p>
+        <a class="to-top" href="#top">
+          <span data-en="Back to top">Na vrh</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
+        </a>
+      </div>
+
+      <div class="site-footer__grid">
+        <!-- Stupac 1: brend -->
+        <div class="footer-col footer-col--brand">
+          <p class="brand brand--light">
+            <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+              <ellipse cx="13" cy="19" rx="7" ry="9.4" transform="rotate(-24 13 19)" fill="currentColor"/>
+              <path d="M16.6 10.6c2.3-4.4 6.2-6.4 11-6.8-1.6 4.5-5.2 7.1-11 6.8z" fill="var(--color-terra-light)"/>
+            </svg>
+            <span class="brand__text"><span class="brand__name">Crvenica</span></span>
+          </p>
+          <p class="footer-col__text" data-en="A family olive grove in Istria since 1974. Extra virgin olive oil, no spraying.">Obiteljski maslinik u Istri od 1974. Ekstra djevičansko maslinovo ulje, bez prskanja.</p>
+        </div>
+
+        <!-- Stupac 2: linkovi na sekcije (dodaj novi link kad dodaš sekciju) -->
+        <nav class="footer-col" aria-label="Podnožje" data-en-aria-label="Footer">
+          <p class="footer-col__title" data-en="On this page">Na stranici</p>
+          <ul class="footer-nav">
+            <li><a href="#about" data-en="About">O nama</a></li>
+            <li><a href="#oil" data-en="The oil">Ulje</a></li>
+            <li><a href="#harvest" data-en="Harvest">Berba</a></li>
+            <li><a href="#pricing" data-en="Prices">Cijenik</a></li>
+            <li><a href="#faq" data-en="FAQ">Pitanja</a></li>
+            <li><a href="#contact" data-en="Contact">Kontakt</a></li>
+          </ul>
+        </nav>
+
+        <!-- Stupac 3: kontakt -->
+        <div class="footer-col">
+          <p class="footer-col__title" data-en="Contact">Kontakt</p>
+          <ul class="footer-nav">
+            <li><a data-href="phone" data-fill="phone" href="tel:+385912345678">+385 91 234 5678</a></li>
+            <li><a data-href="email" data-fill="email" href="mailto:info@crvenica.hr">info@crvenica.hr</a></li>
+            <li data-en="Vodnjan, Istria, Croatia">Vodnjan, Istra, Hrvatska</li>
+          </ul>
+        </div>
+
+        <!-- Stupac 4: društvene mreže. PROMIJENI: href na prave profile -->
+        <div class="footer-col">
+          <p class="footer-col__title" data-en="Follow us">Pratite nas</p>
+          <ul class="footer-nav footer-nav--social">
+            <li><a href="https://www.instagram.com/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>Instagram</a></li>
+            <li><a href="https://www.facebook.com/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-facebook"></use></svg>Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Donja traka: pravni podaci. PROMIJENI: upiši prave podatke OPG-a (obavezno za prodaju preko interneta) -->
+      <div class="site-footer__bottom">
+        <p>© <span data-fill="currentYear">2026</span> OPG Marko Benčić · Vodnjan · OIB 00000000000 · MIBPG 000000</p>
+        <!-- PROMIJENI ili obriši: potpis izrade stranice -->
+        <p><span data-en="Website by">Izrada stranice:</span> <a href="https://github.com/mpajkov" target="_blank" rel="noopener">mpajkov</a></p>
+      </div>
+
+      <!-- DEMO napomena: ova stranica je primjer za portfolio. OBRIŠI ovaj odlomak (i oznaku noindex na vrhu) kad je pokreneš za pravi OPG. -->
+      <p class="site-footer__demo" data-en="Demo website: the brand, family, contact details and lab figures are made-up examples.">Demo stranica: brend, obitelj, kontakt podaci i laboratorijske vrijednosti izmišljeni su primjeri.</p>
+    </div>
+  </footer>
+</body>
+</html>

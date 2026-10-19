@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mpajkov.github.io/crvenica-maslinovo-ulje/sitemap.xml

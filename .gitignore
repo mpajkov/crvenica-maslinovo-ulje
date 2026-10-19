@@ -1,0 +1,8 @@
+# dependencies (only if you add helper scripts later)
+node_modules/
+
+# operating system / editor files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/

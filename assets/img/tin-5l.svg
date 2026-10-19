@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" role="img" aria-labelledby="t">
+<title id="t">Limenka maslinovog ulja od 5 L</title>
+<defs><linearGradient id="side-shade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".05"/></linearGradient>
+<symbol id="tin" viewBox="0 0 200 300">
+  <!-- bočna strana -->
+  <path d="M140,72 L188,52 L188,272 L140,292 Z" fill="#D8CDB6"/>
+  <path d="M140,72 L188,52 L188,98 L140,118 Z" fill="#1E2916"/>
+  <path d="M140,246 L188,226 L188,272 L140,292 Z" fill="#83311E"/>
+  <path d="M140,72 L188,52 L188,272 L140,292 Z" fill="url(#side-shade)"/>
+  <!-- prednja strana -->
+  <rect x="20" y="72" width="120" height="220" fill="#F0E7D4"/>
+  <rect x="20" y="72" width="120" height="46" fill="#2C3A20"/>
+  <rect x="20" y="246" width="120" height="46" fill="#A8432A"/>
+  <rect x="20" y="118" width="120" height="3" fill="#D2BC4E"/>
+  <rect x="20" y="243" width="120" height="3" fill="#D2BC4E"/>
+  <text x="80" y="101" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="13.5" textLength="84" lengthAdjust="spacing" fill="#F0E7D4">CRVENICA</text>
+  <!-- grančica na limenci -->
+  <g transform="translate(80 178)">
+    <path d="M-34,30 C-14,10 6,-6 30,-30" stroke="#6A5B45" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M-20,16 C-30,10 -40,12 -48,4 C-38,0 -28,4 -20,16 Z" fill="#55663F"/>
+    <path d="M-20,16 C-16,6 -18,-4 -12,-14 C-8,-4 -12,8 -20,16 Z" fill="#8E9A73"/>
+    <path d="M-2,0 C-8,-8 -6,-18 -12,-26 C-2,-22 0,-12 -2,0 Z" fill="#55663F"/>
+    <path d="M-2,0 C8,-2 16,2 24,-2 C18,6 8,6 -2,0 Z" fill="#8E9A73"/>
+    <path d="M16,-16 C14,-24 18,-32 16,-40 C24,-34 22,-24 16,-16 Z" fill="#55663F"/>
+    <path d="M16,-16 C24,-16 30,-12 38,-14 C34,-8 24,-8 16,-16 Z" fill="#55663F"/>
+    <ellipse cx="-10" cy="22" rx="6" ry="8" transform="rotate(-20 -10 22)" fill="#4A3040"/>
+    <ellipse cx="2" cy="17" rx="5.5" ry="7.4" transform="rotate(-15 2 17)" fill="#8C9C3A"/>
+    <ellipse cx="-11.5" cy="19.5" rx="1.4" ry="2.2" fill="#fff" opacity=".35"/>
+  </g>
+  <text x="80" y="224" text-anchor="middle" font-family="Georgia, serif" font-size="6.6" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#1F2A16">EKSTRA DJEVIČANSKO</text>
+  <text x="80" y="234" text-anchor="middle" font-family="Georgia, serif" font-size="6.6" textLength="66" lengthAdjust="spacingAndGlyphs" fill="#1F2A16">MASLINOVO ULJE</text>
+  <text x="80" y="279" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#F0E7D4">5 L</text>
+  <!-- rubovi lima -->
+  <rect x="20" y="72" width="120" height="4" fill="#000" opacity=".12"/>
+  <rect x="20" y="288" width="120" height="4" fill="#000" opacity=".16"/>
+  <rect x="20" y="72" width="2" height="220" fill="#fff" opacity=".25"/>
+  <!-- gornja ploha, čep i ručka -->
+  <path d="M20,72 L68,52 L188,52 L140,72 Z" fill="#CFC5AF"/>
+  <path d="M28,70 L70,55 L180,55 L138,70 Z" fill="none" stroke="#A89E88" stroke-width="1.2"/>
+  <ellipse cx="150" cy="58" rx="13" ry="5" fill="#8A3520"/>
+  <rect x="137" y="47" width="26" height="11" fill="#A8432A"/>
+  <ellipse cx="150" cy="47" rx="13" ry="5" fill="#C2603F"/>
+  <path d="M44,66 C46,34 104,26 118,56" stroke="#3B3A33" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <rect x="66" y="31" width="32" height="8" rx="4" transform="rotate(-6 82 35)" fill="#2C2B26"/>
+</symbol></defs>
+<!-- PROMIJENI: ime na limenci je u <text> elementu iznad (CRVENICA) -->
+<use href="#tin" width="200" height="300"/>
+</svg>

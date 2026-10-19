@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 480" role="img" aria-labelledby="t">
+<title id="t">Staklena boca maslinovog ulja od 1 L</title>
+<defs>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#121B0D"/><stop offset=".22" stop-color="#2C3E20"/><stop offset=".55" stop-color="#22321A"/><stop offset=".86" stop-color="#18240F"/><stop offset="1" stop-color="#0E150A"/>
+  </linearGradient>
+  <linearGradient id="cap" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#7E2F1C"/><stop offset=".35" stop-color="#B24E33"/><stop offset=".7" stop-color="#A8432A"/><stop offset="1" stop-color="#76291A"/>
+  </linearGradient>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#E4DAC6"/><stop offset=".2" stop-color="#F4ECDD"/><stop offset=".8" stop-color="#F1E8D8"/><stop offset="1" stop-color="#DCD1BC"/>
+  </linearGradient>
+</defs>
+<!-- staklo -->
+<path d="M64,62 L96,62 L96,118 C96,142 138,160 138,208 L138,438 Q138,458 118,458 L42,458 Q22,458 22,438 L22,208 C22,160 64,142 64,118 Z" fill="url(#glass)"/>
+<!-- odsjaji -->
+<rect x="34" y="214" width="7" height="226" rx="3.5" fill="#fff" opacity=".13"/>
+<rect x="124" y="222" width="3" height="200" rx="1.5" fill="#fff" opacity=".07"/>
+<path d="M70,128 C68,150 40,164 34,196" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".12"/>
+<rect x="70" y="70" width="4" height="44" rx="2" fill="#fff" opacity=".14"/>
+<!-- kapica -->
+<rect x="60" y="8" width="40" height="58" rx="5" fill="url(#cap)"/>
+<rect x="60" y="8" width="40" height="8" rx="4" fill="#C2603F"/>
+<g stroke="#7E2F1C" stroke-width="1" opacity=".55"><line x1="66" y1="20" x2="66" y2="60"/><line x1="72" y1="20" x2="72" y2="60"/><line x1="78" y1="20" x2="78" y2="60"/><line x1="84" y1="20" x2="84" y2="60"/><line x1="90" y1="20" x2="90" y2="60"/><line x1="96" y1="20" x2="96" y2="60"/></g>
+<!-- ovratnik -->
+<rect x="62.5" y="86" width="35" height="18" fill="url(#paper)"/>
+<rect x="62.5" y="99" width="35" height="2" fill="#A8432A"/>
+<!-- etiketa -->
+<rect x="31" y="244" width="98" height="156" rx="2" fill="url(#paper)"/>
+<rect x="37" y="250" width="86" height="144" fill="none" stroke="#A8432A" stroke-width=".9"/>
+<g transform="translate(80 276)">
+  <ellipse cx="-2" cy="3" rx="6.2" ry="8.4" transform="rotate(-24 -2 3)" fill="#4D5E30"/>
+  <path d="M1.5,-4.5 C4,-10 9,-12.5 14.5,-13 C12.5,-8 8,-5 1.5,-4.5 Z" fill="#6B7B3E"/>
+  <ellipse cx="-4.2" cy="0.5" rx="1.6" ry="2.4" transform="rotate(-24 -4.2 .5)" fill="#F4ECDD" opacity=".55"/>
+</g>
+<!-- PROMIJENI: ime na etiketi (otvori ovu datoteku u editoru i promijeni tekst) -->
+<text x="80" y="318" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" textLength="72" lengthAdjust="spacing" fill="#1F2A16">CRVENICA</text>
+<line x1="52" y1="328" x2="108" y2="328" stroke="#1F2A16" stroke-width=".6" opacity=".5"/>
+<text x="80" y="341" text-anchor="middle" font-family="Georgia, serif" font-size="6" textLength="70" lengthAdjust="spacingAndGlyphs" fill="#1F2A16">EKSTRA DJEVIČANSKO</text>
+<text x="80" y="350" text-anchor="middle" font-family="Georgia, serif" font-size="6" textLength="56" lengthAdjust="spacingAndGlyphs" fill="#1F2A16">MASLINOVO ULJE</text>
+<rect x="37" y="372" width="86" height="22" fill="#A8432A"/>
+<text x="80" y="387" text-anchor="middle" font-family="Georgia, serif" font-size="8" textLength="58" lengthAdjust="spacing" fill="#F4ECDD">ISTRA · 1 L</text>
+</svg>
