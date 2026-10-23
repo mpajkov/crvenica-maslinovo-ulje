@@ -113,7 +113,7 @@ When the site moves to its own domain, replace `https://mpajkov.github.io/crveni
 ## Before going live (EU rules for olive-oil sellers)
 
 - **"Organic", "bio"** may only appear with a certificate (EU Regulation 2018/848). The page says "no spraying" and explains in the FAQ that there is no certificate.
-- **"Cold pressed"** may only be used if the oil was obtained below 27 °C (EU Regulation 29/2012). The official term "first cold pressing" is for traditional hydraulic presses; if the mill uses a centrifuge, the legal term is "cold extraction".
+- **"First cold pressing"** may only be used for oil obtained below 27 °C by a first mechanical pressing on a traditional hydraulic press, and **"cold extraction"** only for oil obtained below 27 °C by percolation or centrifugation (Delegated Regulation (EU) 2022/2104, Article 10(a) and (b)). Most modern mills use a centrifuge, in which case the page should say "cold extraction", not "cold pressed".
 - **Health claims** about polyphenols need the lab result that proves them (EU Regulation 432/2012), so the page makes none.
 - The "10 times best olive-growing region" line refers to Istria as a region (Flos Olei guide) and links to its source. Update the number when a new edition comes out.
 

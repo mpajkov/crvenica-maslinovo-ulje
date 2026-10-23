@@ -113,7 +113,7 @@ Kad stranica dobije vlastitu domenu, zamijeni `https://mpajkov.github.io/crvenic
 ## Prije objave (pravila EU-a za prodavače maslinovog ulja)
 
 - **"Ekološko", "bio"** smije pisati samo uz certifikat (EU uredba 2018/848). Stranica zato piše "bez prskanja", a u pitanjima objašnjava da certifikata nema.
-- **"Hladno prešano"** smije pisati samo ako je ulje dobiveno ispod 27 °C (EU uredba 29/2012). Službeni izraz "prvo hladno prešanje" vrijedi za tradicionalnu hidrauličnu prešu; ako uljara radi s centrifugom, zakonski izraz je "hladno cijeđeno".
+- **„Prvo hladno prešanje”** smije se navesti samo za ulje dobiveno pri temperaturi nižoj od 27 °C prvim mehaničkim prešanjem na tradicionalnoj hidrauličkoj preši, a **„hladni postupak”** samo za ulje dobiveno pri temperaturi nižoj od 27 °C procjeđivanjem ili centrifugiranjem (Delegirana uredba (EU) 2022/2104, čl. 10. t. (a) i (b)). Većina današnjih uljara radi s centrifugom, pa tada na stranici treba pisati „hladni postupak”, a ne „hladno prešano”.
 - **Zdravstvene tvrdnje** o polifenolima trebaju nalaz koji ih dokazuje (EU uredba 432/2012), pa ih stranica nema.
 - Tvrdnja "10 puta najbolja maslinarska regija" odnosi se na Istru kao regiju (vodič Flos Olei) i ima poveznicu na izvor. Broj ažuriraj kad izađe novo izdanje.
 
