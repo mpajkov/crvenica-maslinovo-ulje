@@ -42,7 +42,7 @@ const SETTINGS = {
 
   harvestYear: 2026,                     // godina berbe ulja koje trenutno prodajete (piše se na više mjesta)
   deliveryPrice: 5,                      // cijena dostave u eurima
-  freeDeliveryFrom: 90,                  // od ovog iznosa narudžbe dostava je besplatna (0 = dostava se uvijek plaća)
+  freeDeliveryFrom: 85,                  // od ovog iznosa narudžbe dostava je besplatna (0 = dostava se uvijek plaća)
   maxQuantity: 20,                       // najveća količina jednog paketa koja se može upisati u formi
 
   // PROMIJENI: koordinate imanja. Na Google kartama desni klik na mjesto -> klik na brojeve -> zalijepi ovdje.
