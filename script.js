@@ -32,7 +32,7 @@
 
 const SETTINGS = {
   brandName: "Crvenica",                 // PROMIJENI: ime brenda (koristi se u emailovima i za Google)
-  email: "info@crvenica.hr",             // PROMIJENI: email na koji stižu narudžbe i poruke
+  email: "demo@example.com",             // PROMIJENI: email na koji stižu narudžbe i poruke
   phone: "+385 91 234 5678",             // PROMIJENI: broj telefona, točno kako se prikazuje na stranici
   whatsapp: "385912345678",              // PROMIJENI: isti broj za WhatsApp, samo znamenke (bez +, razmaka i nule ispred 91)
 

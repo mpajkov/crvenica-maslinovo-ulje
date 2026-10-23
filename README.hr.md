@@ -2,7 +2,7 @@
 
 **Brza dvojezična (hrvatski / engleski) stranica s jednom cjelinom za obiteljski maslinik u Istri**, s formom za narudžbu koja zbraja račun dok kupac tipka, automatskim izračunom cijene po litri i uštede, kalendarom berbe i laboratorijskim nalazom prikazanim trakama.
 
-[**Pogledaj uživo**](https://mpajkov.github.io/crvenica-maslinovo-ulje/) · [English description](README.md) · Izradio [mpajkov](https://github.com/mpajkov)
+[**Demo (koncept)**](https://mpajkov.github.io/crvenica-maslinovo-ulje/) · [English description](README.md) · Izradio [mpajkov](https://github.com/mpajkov)
 
 ![Crvenica na računalu i mobitelu](docs/screenshots/overview.jpg)
 
@@ -37,12 +37,12 @@
 
 ## Provjere kvalitete
 
-Sve navedeno izmjereno je na ovom kodu automatiziranim testovima (Playwright/Chromium), osim retka Lighthouse, koji je pokrenut na demo stranici.
+Sve navedeno izmjereno je na ovom kodu automatiziranim testovima (Playwright/Chromium), osim redaka Lighthouse i Brzina, koji su izmjereni na demo stranici.
 
 | Područje | Rezultat |
 |---|---|
-| **Lighthouse** (mobitel, demo stranica, medijan 3 mjerenja, 23. 10. 2026.) | Performance 91, Accessibility 100, Best practices 100, SEO 66. SEO je niži samo zato što ova demo kopija namjerno ima `noindex` |
-| **Brzina** (simulirani srednji mobitel: procesor 4 puta sporiji, 1,6 Mbit/s, kašnjenje 150 ms) | Prvi prikaz oko 1,2 s, glavni sadržaj (LCP) oko 1,4 s, pomak rasporeda 0,005 · na računalu: 0,4 s / 0,5 s |
+| **Lighthouse** (Lighthouse 12.8.2, zadana simulacija mobitela, demo stranica, medijan 3 mjerenja, 23. 10. 2026.) | Performance 98, Accessibility 100, Best practices 100, SEO 66. SEO je niži samo zato što ova demo kopija namjerno ima `noindex` |
+| **Brzina** (zadana simulacija mobitela u Lighthouseu 12.8.2: procesor 4 puta sporiji, 1,6 Mbit/s, kašnjenje 150 ms; medijan 3 mjerenja, 23. 10. 2026.) | Prvi prikaz oko 1,6 s, glavni sadržaj (LCP) oko 1,9 s, pomak rasporeda oko 0,02, vrijeme blokiranja oko 6 ms |
 | **Veličina** | 179 KB u 11 zahtjeva (HTML 19, CSS 16, JS 15, slike 43, fontovi 86 KB) |
 | **Prilagodba ekranima** | Nema vodoravnog pomicanja ni sadržaja izvan ekrana pri 320, 375, 414, 768, 1024, 1440 i 1920 px, na oba jezika; izgled pregledan na mobitelu, tabletu i računalu |
 | **Pristupačnost** | Poveznica "preskoči na sadržaj", vidljiv fokus, izbornik i forma u potpunosti rade tipkovnicom (Esc zatvara izbornik na mobitelu, fokus se pametno premješta), oznake za čitače ekrana, greške povezane s poljima, ukupni iznos narudžbe se objavljuje čitačima, kontrast teksta 4,5:1 ili bolji (izmjeren i na teksturiranoj pozadini), površine za dodir najmanje 24 px, podrška za smanjeno kretanje |

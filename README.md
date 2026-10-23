@@ -2,7 +2,7 @@
 
 **A fast, bilingual (Croatian / English) one-page shop for a family olive-oil farm in Istria**, with an order form that adds up the invoice as you type, automatic price-per-litre and savings, a harvest calendar and lab results shown as bars.
 
-[**Live demo**](https://mpajkov.github.io/crvenica-maslinovo-ulje/) · [Hrvatski opis](README.hr.md) · Built by [mpajkov](https://github.com/mpajkov)
+[**Demo (concept)**](https://mpajkov.github.io/crvenica-maslinovo-ulje/) · [Hrvatski opis](README.hr.md) · Built by [mpajkov](https://github.com/mpajkov)
 
 ![Crvenica on desktop and phone](docs/screenshots/overview.jpg)
 
@@ -37,12 +37,12 @@
 
 ## Quality checks
 
-Every claim below was measured on this code with an automated Playwright/Chromium test harness, except the Lighthouse row, which was run on the live demo.
+Every claim below was measured on this code with an automated Playwright/Chromium test harness, except the Lighthouse and Speed rows, which were measured on the demo site.
 
 | Area | Result |
 |---|---|
-| **Lighthouse** (mobile, live demo, median of 3 runs, 23 Oct 2026) | Performance 91, Accessibility 100, Best practices 100, SEO 66. SEO is lower only because this demo copy deliberately carries `noindex` |
-| **Speed** (simulated mid-range phone: 4x CPU slowdown, 1.6 Mbit/s, 150 ms latency) | First paint about 1.2 s, main content (LCP) about 1.4 s, layout shift 0.005 · on a desktop: 0.4 s / 0.5 s |
+| **Lighthouse** (Lighthouse 12.8.2, default mobile simulation, demo site, median of 3 runs, 23 Oct 2026) | Performance 98, Accessibility 100, Best practices 100, SEO 66. SEO is lower only because this demo copy deliberately carries `noindex` |
+| **Speed** (Lighthouse 12.8.2 default mobile simulation: 4x CPU slowdown, 1.6 Mbit/s, 150 ms latency; median of 3, 23 Oct 2026) | First paint about 1.6 s, largest paint about 1.9 s, layout shift about 0.02, blocking time about 6 ms |
 | **Weight** | 179 KB in 11 requests (HTML 19, CSS 16, JS 15, images 43, fonts 86 KB) |
 | **Responsive** | No sideways scrolling and nothing outside the screen at 320, 375, 414, 768, 1024, 1440 and 1920 px, in both languages; layouts reviewed on phone, tablet and desktop |
 | **Accessibility** | Skip link, visible focus, full keyboard use of the menu and the form (Esc closes the phone menu, focus is managed), screen-reader labels, errors linked to their fields, live announcement of the order total, text contrast 4.5:1 or better (also measured on textured backgrounds), tap targets at least 24 px, reduced-motion support |
