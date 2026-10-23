@@ -42,7 +42,7 @@ const SETTINGS = {
 
   harvestYear: 2026,                     // godina berbe ulja koje trenutno prodajete (piše se na više mjesta)
   deliveryPrice: 5,                      // cijena dostave u eurima
-  freeDeliveryFrom: 85,                  // od ovog iznosa narudžbe dostava je besplatna (0 = dostava se uvijek plaća)
+  freeDeliveryFrom: 90,                  // od ovog iznosa narudžbe dostava je besplatna (0 = dostava se uvijek plaća)
   maxQuantity: 20,                       // najveća količina jednog paketa koja se može upisati u formi
 
   // PROMIJENI: koordinate imanja. Na Google kartama desni klik na mjesto -> klik na brojeve -> zalijepi ovdje.
@@ -63,7 +63,7 @@ const SETTINGS = {
 
 const TEXTS = {
   hr: {
-    locale: "hr-HR",                                         // oblik brojeva i datuma (85 €, 17,00 €)
+    locale: "hr-HR",                                         // oblik brojeva i datuma (90 €, 18,00 €)
     languageName: "hrvatski",
     menuOpen: "Otvori izbornik",
     menuClose: "Zatvori izbornik",
@@ -112,7 +112,7 @@ const TEXTS = {
   },
 
   en: {
-    locale: "en-IE",                                         // engleski s eurom (€85, €17.00)
+    locale: "en-IE",                                         // engleski s eurom (€90, €18.00)
     languageName: "English",
     menuOpen: "Open menu",
     menuClose: "Close menu",
@@ -181,7 +181,7 @@ function hasLanguage(lang) {
 // Ime događaja koji javlja da je promijenjen jezik (ostali dijelovi ga slušaju)
 const LANGUAGE_EVENT = "site:language";
 
-// Vraća tekst iz TEXTS za trenutni jezik i u njega upisuje vrijednosti, npr. t("perLiter", { price: "17 €" })
+// Vraća tekst iz TEXTS za trenutni jezik i u njega upisuje vrijednosti, npr. t("perLiter", { price: "18 €" })
 function t(key, values = {}) {
   const text = TEXTS[currentLang][key] ?? TEXTS.hr[key] ?? key;   // ako nema prijevoda, uzmi hrvatski
   return fillTemplate(text, values);
@@ -192,7 +192,7 @@ function fillTemplate(text, values) {
   return String(text).replace(/\{(\w+)\}/g, (match, name) => (name in values ? values[name] : match));
 }
 
-// Treba li cijena decimale? 85 -> ne, 17.5 -> da
+// Treba li cijena decimale? 90 -> ne, 17.5 -> da
 function decimalsFor(amount) {
   return Number.isInteger(amount) ? 0 : 2;
 }
@@ -218,7 +218,7 @@ function currencyOptions(decimals) {
   return { style: "currency", currency: "EUR", minimumFractionDigits: decimals, maximumFractionDigits: decimals };
 }
 
-// Cijena u eurima prema jeziku: "85 €" na hrvatskom, "€85" na engleskom
+// Cijena u eurima prema jeziku: "90 €" na hrvatskom, "€90" na engleskom
 function formatPrice(amount, decimals = decimalsFor(amount), lang = currentLang) {
   return numberFormatter(TEXTS[lang].locale, currencyOptions(decimals)).format(amount);
 }
@@ -540,7 +540,7 @@ function getPackages() {
   return $$("[data-package]")
     .map((card) => ({
       id: card.dataset.package,                              // npr. "5l"
-      price: Number(card.dataset.price),                     // npr. 85
+      price: Number(card.dataset.price),                     // npr. 90
       liters: Number(card.dataset.liters),                   // npr. 5
       card,                                                  // sam HTML element kartice
     }))
@@ -560,7 +560,7 @@ function deliveryCost(orderTotal) {
   return free ? 0 : SETTINGS.deliveryPrice;
 }
 
-// Ispis cijene s manjim znakom €: <span class="price__number">85</span><span class="price__currency">€</span>
+// Ispis cijene s manjim znakom €: <span class="price__number">90</span><span class="price__currency">€</span>
 function renderPrice(el, amount) {
   const parts = numberFormatter(TEXTS[currentLang].locale, currencyOptions(decimalsFor(amount))).formatToParts(amount);
 

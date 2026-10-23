@@ -79,7 +79,7 @@ Open `index.html` by double-clicking it: everything works offline too, apart fro
 **Prices and packages.** Change `data-price` and `data-liters` on the package card in `index.html`:
 
 ```html
-<article class="package" data-package="5l" data-price="85" data-liters="5">
+<article class="package" data-package="5l" data-price="90" data-liters="5">
 ```
 
 To add a package, copy a whole `<article class="package">` and change its data and texts.
@@ -113,7 +113,7 @@ When the site moves to its own domain, replace `https://mpajkov.github.io/crveni
 ## Before going live (EU rules for olive-oil sellers)
 
 - **"Organic", "bio"** may only appear with a certificate (EU Regulation 2018/848). The page says "no spraying" and explains in the FAQ that there is no certificate.
-- **"Cold extracted"** may only be used if the oil was obtained below 27 °C (EU Regulation 29/2012). Remove it if that is not true for your oil.
+- **"Cold pressed"** may only be used if the oil was obtained below 27 °C (EU Regulation 29/2012). The official term "first cold pressing" is for traditional hydraulic presses; if the mill uses a centrifuge, the legal term is "cold extraction".
 - **Health claims** about polyphenols need the lab result that proves them (EU Regulation 432/2012), so the page makes none.
 - The "10 times best olive-growing region" line refers to Istria as a region (Flos Olei guide) and links to its source. Update the number when a new edition comes out.
 

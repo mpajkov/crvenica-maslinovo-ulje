@@ -79,7 +79,7 @@ Otvori `index.html` dvoklikom: sve radi i bez interneta, osim slanja forme.
 **Cijene i paketi.** Promijeni `data-price` i `data-liters` na kartici paketa u `index.html`:
 
 ```html
-<article class="package" data-package="5l" data-price="85" data-liters="5">
+<article class="package" data-package="5l" data-price="90" data-liters="5">
 ```
 
 Za novi paket kopiraj cijeli `<article class="package">` i promijeni podatke i tekstove.
@@ -113,7 +113,7 @@ Kad stranica dobije vlastitu domenu, zamijeni `https://mpajkov.github.io/crvenic
 ## Prije objave (pravila EU-a za prodavače maslinovog ulja)
 
 - **"Ekološko", "bio"** smije pisati samo uz certifikat (EU uredba 2018/848). Stranica zato piše "bez prskanja", a u pitanjima objašnjava da certifikata nema.
-- **"Hladno cijeđeno"** smije pisati samo ako je ulje dobiveno ispod 27 °C (EU uredba 29/2012). Ako to za vaše ulje nije točno, makni.
+- **"Hladno prešano"** smije pisati samo ako je ulje dobiveno ispod 27 °C (EU uredba 29/2012). Službeni izraz "prvo hladno prešanje" vrijedi za tradicionalnu hidrauličnu prešu; ako uljara radi s centrifugom, zakonski izraz je "hladno cijeđeno".
 - **Zdravstvene tvrdnje** o polifenolima trebaju nalaz koji ih dokazuje (EU uredba 432/2012), pa ih stranica nema.
 - Tvrdnja "10 puta najbolja maslinarska regija" odnosi se na Istru kao regiju (vodič Flos Olei) i ima poveznicu na izvor. Broj ažuriraj kad izađe novo izdanje.
 
