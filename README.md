@@ -37,10 +37,11 @@
 
 ## Quality checks
 
-Every claim below was measured on this code with an automated Playwright/Chromium test harness (Lighthouse itself could not be installed in the build environment).
+Every claim below was measured on this code with an automated Playwright/Chromium test harness, except the Lighthouse row, which was run on the live demo.
 
 | Area | Result |
 |---|---|
+| **Lighthouse** (mobile, live demo, median of 3 runs, 23 Oct 2026) | Performance 91, Accessibility 100, Best practices 100, SEO 66. SEO is lower only because this demo copy deliberately carries `noindex` |
 | **Speed** (simulated mid-range phone: 4x CPU slowdown, 1.6 Mbit/s, 150 ms latency) | First paint about 1.2 s, main content (LCP) about 1.4 s, layout shift 0.005 · on a desktop: 0.4 s / 0.5 s |
 | **Weight** | 179 KB in 11 requests (HTML 19, CSS 16, JS 15, images 43, fonts 86 KB) |
 | **Responsive** | No sideways scrolling and nothing outside the screen at 320, 375, 414, 768, 1024, 1440 and 1920 px, in both languages; layouts reviewed on phone, tablet and desktop |

@@ -37,10 +37,11 @@
 
 ## Provjere kvalitete
 
-Sve navedeno izmjereno je na ovom kodu automatiziranim testovima (Playwright/Chromium). Sam Lighthouse nije se mogao instalirati u okruženju u kojem je stranica građena.
+Sve navedeno izmjereno je na ovom kodu automatiziranim testovima (Playwright/Chromium), osim retka Lighthouse, koji je pokrenut na demo stranici.
 
 | Područje | Rezultat |
 |---|---|
+| **Lighthouse** (mobitel, demo stranica, medijan 3 mjerenja, 23. 10. 2026.) | Performance 91, Accessibility 100, Best practices 100, SEO 66. SEO je niži samo zato što ova demo kopija namjerno ima `noindex` |
 | **Brzina** (simulirani srednji mobitel: procesor 4 puta sporiji, 1,6 Mbit/s, kašnjenje 150 ms) | Prvi prikaz oko 1,2 s, glavni sadržaj (LCP) oko 1,4 s, pomak rasporeda 0,005 · na računalu: 0,4 s / 0,5 s |
 | **Veličina** | 179 KB u 11 zahtjeva (HTML 19, CSS 16, JS 15, slike 43, fontovi 86 KB) |
 | **Prilagodba ekranima** | Nema vodoravnog pomicanja ni sadržaja izvan ekrana pri 320, 375, 414, 768, 1024, 1440 i 1920 px, na oba jezika; izgled pregledan na mobitelu, tabletu i računalu |
